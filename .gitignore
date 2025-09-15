@@ -1,0 +1,18 @@
+# CLion / IntelliJ
+.idea/
+*.iml
+
+# CMake build dirs
+cmake-build-*/
+build/
+out/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Binary/object files
+*.exe
+*.o
+*.obj
+*.pdb
