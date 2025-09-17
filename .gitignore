@@ -1,18 +1,16 @@
-# CLion / IntelliJ
+﻿# CLion / JetBrains
 .idea/
-*.iml
-
-# CMake build dirs
 cmake-build-*/
-build/
-out/
+
+# CMake junk
+CMakeFiles/
+CMakeCache.txt
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+compile_commands.json
 
 # OS junk
 .DS_Store
 Thumbs.db
-
-# Binary/object files
-*.exe
-*.o
-*.obj
-*.pdb
