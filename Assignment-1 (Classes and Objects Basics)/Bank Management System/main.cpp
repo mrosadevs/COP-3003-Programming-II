@@ -1,9 +1,5 @@
 #include <iostream>
 #include <string>
-// Q (Windows 2025-09-17): Why are we using double here instead of int?
-// A (Mac 2025-09-17): double supports decimals; int is whole numbers only.
-//                     If balances/rates can have cents or fractions, use double. Great!
-
 
 class BankAccount {  // Class that will be  bvlue  print  for making t he  program
     public:
