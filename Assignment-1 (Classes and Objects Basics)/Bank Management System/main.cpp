@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+// Q (Windows 2025-09-17): Why are we using double here instead of int?
 
 class BankAccount {  // Class that will be  bvlue  print  for making t he  program
     public:
