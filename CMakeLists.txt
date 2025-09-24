@@ -24,7 +24,8 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
     # Ensure the name starts with a letter (CMake plays nicer)
     string(REGEX REPLACE "^[^A-Za-z]+" "prog_" TARGET_NAME "${TARGET_NAME}")
 
-    add_executable(${TARGET_NAME} "${MAIN_FILE}")
+    add_executable(${TARGET_NAME} "${MAIN_FILE}"
+            In-Class-Assignment-Arrays/main.cpp)
 
     if (MSVC)
         target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
