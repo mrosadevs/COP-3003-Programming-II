@@ -25,7 +25,8 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
     string(REGEX REPLACE "^[^A-Za-z]+" "prog_" TARGET_NAME "${TARGET_NAME}")
 
     add_executable(${TARGET_NAME} "${MAIN_FILE}"
-            In-Class-Assignment-Arrays/main.cpp)
+            In-Class-Assignment-Arrays/main.cpp
+            Assignment-3-Arrays-in-OOPS/main.cpp)
 
     if (MSVC)
         target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
