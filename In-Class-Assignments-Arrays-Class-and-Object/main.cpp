@@ -1,10 +1,9 @@
-#include <iostream>  // Include standard I/O (std::cout, std::endl); no using namespace std
+#include <iostream>  // Include standard I/O (std::cout, std::endl);
 
-// Use a constant so sizes stay in sync with loop bounds (prof used 5 elements -> indices 0..4)
 const int SIZE = 5;  // The array will have 5 integers
 
 class Order {  // Define a class named Order (a blueprint for objects that hold and sort an array)
-public:        // Public: members accessible from main (matches your classmate printing c1.num[i])
+public:        // Public: members accessible from main
     int num[SIZE];  // Fixed-size C-array that stores the integers
 
     Order() {  // Default constructor: initialize the array with sample values
@@ -58,9 +57,5 @@ int main() {               // Program entry point
     c1.descending();       // Sort the same array from large to small
     c1.print("Descending"); // Show the descending result
 
-    // If your professor wants direct access like your classmate did:
-    // for (int i = 0; i < SIZE; i++) std::cout << c1.num[i] << " ";  // Direct field access (public)
-    // std::cout << std::endl;
-
-    return 0;              // Exit with success
+    return 0;
 }
