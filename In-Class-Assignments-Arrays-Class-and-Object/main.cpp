@@ -1,66 +1,66 @@
-#include <iostream>  // This allows use of std::cout and std::cin
-class Ascending_Descending {
-// Class that will be  bvlue  print  for making t he  program
-public:
-    int numbers[7] = {42, 7, -3, 19, 0, 5, 19};  // This is the array
-    int size = 7;  // This variable stores how many numbers are in the array.
+#include <iostream>  // Include standard I/O (std::cout, std::endl); no using namespace std
 
-    void original() {
-        std::cout << "Original array: ";
-        for (int i = 0; i < size; i++) {  // This loop will allow to print each element in the array from 0-6 by adding 1 each loop.
-            std::cout << numbers[i] << " ";  // This will print the array unordered how it is originally.
-        }
-        std::cout << std::endl;
+// Use a constant so sizes stay in sync with loop bounds (prof used 5 elements -> indices 0..4)
+const int SIZE = 5;  // The array will have 5 integers
+
+class Order {  // Define a class named Order (a blueprint for objects that hold and sort an array)
+public:        // Public: members accessible from main (matches your classmate printing c1.num[i])
+    int num[SIZE];  // Fixed-size C-array that stores the integers
+
+    Order() {  // Default constructor: initialize the array with sample values
+        num[0] = 42;  // Element at index 0
+        num[1] = 7;   // Element at index 1
+        num[2] = -3;  // Element at index 2
+        num[3] = 19;  // Element at index 3
+        num[4] = 5;   // Element at index 4
     }
-    void ascending() {
-        // Work on a local copy so we don't mutate the original numbers
-        int arr[7];
-        for (int i = 0; i < size; ++i) arr[i] = numbers[i];
 
-        for (int i = 0; i < size -1; i++) {  // This passes and locks an element form the array in a certain area to sort them.
-            for (int j = 0; j < size -1 - i; j++) {  // This compares elements in the array in pairs right next to each other.
-                if (arr[j] > arr[j + 1]) {  // This swaps elements in the array that are greater than the other to put them in order.
-                    int temp = arr[j];  // Temp holds left value for swap
-                    arr[j] = arr[j + 1];  // Move right value into left slot
-                    arr[j + 1] = temp;  // Move saved left value into right slot
+    void ascending() {  // Method: bubble sort in ascending order (smallest -> largest)
+        for (int i = 0; i < SIZE - 1; i++) {          // Outer passes: at most SIZE-1
+            for (int j = 0; j < SIZE - 1 - i; j++) {  // Inner: compare pairs (j, j+1) within unsorted zone
+                if (num[j] > num[j + 1]) {            // If left > right, they’re out of order for ascending
+                    int max = num[j];                 // Temp hand (called max in your screenshot)
+                    num[j] = num[j + 1];              // Move right into left
+                    num[j + 1] = max;                 // Put saved left into right
                 }
             }
         }
-
-        std::cout << "Ascending order: ";
-        for (int i = 0; i < size; i++) {
-            std::cout << arr[i] << " ";
-        }
-        std::cout << std::endl;
     }
-    void descending() {
-        // Work on a local copy so we don't depend on previous sorts
-        int arr[7];
-        for (int i = 0; i < size; ++i) arr[i] = numbers[i];
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size -1 - i; j++) {
-                if (arr[j] < arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+    void descending() {  // Method: bubble sort in descending order (largest -> smallest)
+        for (int i = 0; i < SIZE - 1; i++) {          // Outer passes: at most SIZE-1
+            for (int j = 0; j < SIZE - 1 - i; j++) {  // Inner: compare pairs (j, j+1) within unsorted zone
+                if (num[j] < num[j + 1]) {            // If left < right, they’re out of order for descending
+                    int min = num[j];                 // Temp hand (called min in your screenshot)
+                    num[j] = num[j + 1];              // Move right into left
+                    num[j + 1] = min;                 // Put saved left into right
                 }
             }
         }
+    }
 
-        std::cout << "Descending order: ";
-        for (int i = 0; i < size; i++) {
-            std::cout << arr[i] << " ";
+    void print(const char* label) const {  // Helper to print the array with a label
+        std::cout << label << ": ";        // Print the provided label
+        for (int i = 0; i < SIZE; i++) {   // Visit each element 0..SIZE-1
+            std::cout << num[i] << " ";    // Print element i followed by a space
         }
-        std::cout << std::endl;
+        std::cout << std::endl;            // Newline + flush
     }
 };
 
-int main() {  // Main program
-    Ascending_Descending a;  // This will create an object of the class
-    a.original();  // This will call the original function
-    a.ascending();  // This will call the ascending function
-    a.descending();  // This will call the descending function
+int main() {               // Program entry point
+    Order c1;              // Make an object (instance) of class Order; constructor fills c1.num
+    c1.print("Original");  // Show the starting values
 
-    return 0;
+    c1.ascending();        // Sort the array inside c1 from small to large
+    c1.print("Ascending"); // Show the ascending result
+
+    c1.descending();       // Sort the same array from large to small
+    c1.print("Descending"); // Show the descending result
+
+    // If your professor wants direct access like your classmate did:
+    // for (int i = 0; i < SIZE; i++) std::cout << c1.num[i] << " ";  // Direct field access (public)
+    // std::cout << std::endl;
+
+    return 0;              // Exit with success
 }

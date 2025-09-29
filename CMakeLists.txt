@@ -22,7 +22,8 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
     string(REGEX REPLACE "^[^A-Za-z]+" "prog_" TARGET_NAME "${TARGET_NAME}")
 
     # 👇 Each target now gets ONLY its own main.cpp
-    add_executable(${TARGET_NAME} "${MAIN_FILE}")
+    add_executable(${TARGET_NAME} "${MAIN_FILE}"
+            In-Class-Assignment-Vectors/main.cpp)
 
     if (MSVC)
         target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
