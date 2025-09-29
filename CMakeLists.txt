@@ -6,27 +6,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find every main.cpp anywhere under the repo
 file(GLOB_RECURSE PROGRAM_MAIN_FILES
-     RELATIVE "${CMAKE_SOURCE_DIR}"
-     "${CMAKE_SOURCE_DIR}/**/main.cpp")
+        RELATIVE "${CMAKE_SOURCE_DIR}"
+        "${CMAKE_SOURCE_DIR}/**/main.cpp")
 
 foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
-    # MAIN_FILE example: Assignment-1 (Classes and Objects Basics)/Bank Management System/main.cpp
-    get_filename_component(PARENT_DIR "${MAIN_FILE}" DIRECTORY)   # .../Bank Management System
-    # Build a target name from the path but strip illegal chars: only [A-Za-z0-9_]
+    # Example MAIN_FILE: Assignment-1 (Classes and Objects Basics)/Bank Management System/main.cpp
+    get_filename_component(PARENT_DIR "${MAIN_FILE}" DIRECTORY)
+
+    # Build a clean target name from the path
     string(REPLACE "/" "_" TARGET_NAME_RAW "${PARENT_DIR}")
-    # Replace spaces and hyphens with underscores first (optional clarity)
     string(REPLACE " " "_" TARGET_NAME_RAW "${TARGET_NAME_RAW}")
     string(REPLACE "-" "_" TARGET_NAME_RAW "${TARGET_NAME_RAW}")
-    # Nuke everything not [A-Za-z0-9_]
     string(REGEX REPLACE "[^A-Za-z0-9_]" "_" TARGET_NAME "${TARGET_NAME_RAW}")
-    # Collapse multiple underscores (purely cosmetic)
     string(REGEX REPLACE "_+" "_" TARGET_NAME "${TARGET_NAME}")
-    # Ensure the name starts with a letter (CMake plays nicer)
     string(REGEX REPLACE "^[^A-Za-z]+" "prog_" TARGET_NAME "${TARGET_NAME}")
 
-    add_executable(${TARGET_NAME} "${MAIN_FILE}"
-            In-Class-Assignment-Arrays/main.cpp
-            Assignment-3-Arrays-in-OOPS/main.cpp)
+    # 👇 Each target now gets ONLY its own main.cpp
+    add_executable(${TARGET_NAME} "${MAIN_FILE}")
 
     if (MSVC)
         target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
