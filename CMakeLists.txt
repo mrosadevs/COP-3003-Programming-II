@@ -23,7 +23,8 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
 
     # 👇 Each target now gets ONLY its own main.cpp
     add_executable(${TARGET_NAME} "${MAIN_FILE}"
-            In-Class-Assignment-Vector-And-Array-Implementation/main.cpp)
+            In-Class-Assignment-Vector-And-Array-Implementation/main.cpp
+            In-Class-Work-Pointers/main.cpp)
 
     if (MSVC)
         target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
