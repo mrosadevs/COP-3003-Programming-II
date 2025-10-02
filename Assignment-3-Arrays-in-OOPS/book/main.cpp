@@ -1,42 +1,35 @@
 #include <iostream>
-#include <string>
 
-class Book {
-private:
-    std::string title;
-    std::string author;
-    int copiesAvailable;
+class Calculator {
 public:
-    Book(const std::string& t, const std::string& a, int copies)
-        : title(t), author(a), copiesAvailable(copies) {}
-
-    bool isAvailable() const { return copiesAvailable > 0; }
-    void print() const {
-        std::cout << title << " by " << author
-                  << " - Copies: " << copiesAvailable << std::endl;
+    void add(double a, double b) {
+        std::cout << "Addition: " << (a + b) << std::endl;
+    }
+    void subtract(double a, double b) {
+        std::cout << "Subtraction: " << (a - b) << std::endl;
+    }
+    void multiply(double a, double b) {
+        std::cout << "Multiplication: " << (a * b) << std::endl;
+    }
+    void divide(double a, double b) {
+        if (b == 0) {
+            std::cout << "Division: Error (divide by zero)" << std::endl;
+        } else {
+            std::cout << "Division: " << (a / b) << std::endl;
+        }
     }
 };
 
 int main() {
-    Book library[10] = {
-        Book("C++ Basics","Bjarne",5),
-        Book("Data Structures","Mark",3),
-        Book("Algorithms","John",2),
-        Book("Operating Systems","Silberschatz",10),
-        Book("Database Systems","Navathe",4),
-        Book("Computer Networks","Tanenbaum",1),
-        Book("AI Foundations","Russell",20),
-        Book("Machine Learning","Tom",7),
-        Book("Cryptography","Stallings",6),
-        Book("Numerical Methods","Press",0)
-    };
+    Calculator c;
+    double x = 12;
+    double y = 4;
 
-    std::cout << "Books Available in Library:\n";
+    std::cout << "Inputs: " << x << " and " << y << std::endl;
+    c.add(x, y);
+    c.subtract(x, y);
+    c.multiply(x, y);
+    c.divide(x, y);
 
-    for (int i = 0; i < 10; i++) {
-        if (library[i].isAvailable()) {
-            library[i].print();
-        }
-    }
     return 0;
 }

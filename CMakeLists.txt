@@ -25,7 +25,9 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
     add_executable(${TARGET_NAME} "${MAIN_FILE}"
             In-Class-Assignment-Vector-And-Array-Implementation/main.cpp
             In-Class-Work-Pointers/main.cpp
-            Assignment-3-Arrays-in-OOPS/book/main.cpp)
+            Assignment-3-Arrays-in-OOPS/book/main.cpp
+            Assignment-3-Arrays-in-OOPS/Menu/main.cpp
+            Assignment-3-Arrays-in-OOPS/Student/main.cpp)
 
     if (MSVC)
         target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
