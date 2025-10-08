@@ -28,7 +28,10 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
             Assignment-3-Arrays-in-OOPS/book/main.cpp
             Assignment-3-Arrays-in-OOPS/Menu/main.cpp
             Assignment-3-Arrays-in-OOPS/Student/main.cpp
-            In-Class-Problem-Passing-By-Value/main.cpp)
+            In-Class-Problem-Passing-By-Value/main.cpp
+            Assignment-4-Vectors-In-Oops/main.cpp
+            Assignment-5-Pointers/main.cpp
+    )
 
     if (MSVC)
         target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
