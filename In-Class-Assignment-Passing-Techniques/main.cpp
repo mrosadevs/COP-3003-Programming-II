@@ -26,7 +26,7 @@ int main() {
     int ptrNumber = number;
     doubleByPointer(&ptrNumber);
 
-    std::cout << "\nResults:\n";
+    std::cout << "Results:\n";
     std::cout << "Calling by Value: " << valueNumber << std::endl;
     std::cout << "Calling by Reference: " << refNumber << std::endl;
     std::cout << "Calling by Pointer: " << ptrNumber << std::endl;
