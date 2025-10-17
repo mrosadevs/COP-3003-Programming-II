@@ -32,6 +32,11 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
             Assignment-4-Vectors-In-Oops/main.cpp
             Assignment-5-Pointers/main.cpp
             In-Class-Assignment-Passing-Techniques/main.cpp
+            Assignment-5-Pointers/Problem-1/mian.cpp
+            Assignment-5-Pointers/Problem-2/main.cpp
+            Assignment-5-Pointers/Problem-1/mian.cpp
+            Assignment-5-Pointers/Problem-1/mian.cpp
+            Assignment-5-Pointers/Problem-2/main.cpp
     )
 
     if (MSVC)
