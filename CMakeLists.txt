@@ -37,6 +37,7 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
             Assignment-5-Pointers/Problem-1/mian.cpp
             Assignment-5-Pointers/Problem-1/mian.cpp
             Assignment-5-Pointers/Problem-2/main.cpp
+            In-Class-Inheritance-Work/main.cpp
     )
 
     if (MSVC)
