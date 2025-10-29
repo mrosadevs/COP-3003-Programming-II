@@ -4,45 +4,68 @@ project(COP_3003_Programming_II LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find every main.cpp anywhere under the repo
+# Put built binaries in build/bin
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+# Find every main.cpp (and catch common typo: mian.cpp)
 file(GLOB_RECURSE PROGRAM_MAIN_FILES
         RELATIVE "${CMAKE_SOURCE_DIR}"
-        "${CMAKE_SOURCE_DIR}/**/main.cpp")
+        "${CMAKE_SOURCE_DIR}/**/main.cpp"
+        "${CMAKE_SOURCE_DIR}/**/mian.cpp"
+)
 
+if(NOT PROGRAM_MAIN_FILES)
+    message(WARNING "No main.cpp (or mian.cpp) files found under ${CMAKE_SOURCE_DIR}")
+endif()
+
+# Helper: build a safe, unique target name from a relative path
+function(make_target_name out_var path_rel)
+    get_filename_component(_dir  "${path_rel}" DIRECTORY)
+    get_filename_component(_stem "${path_rel}" NAME_WE)
+
+    # If main.cpp is at repo root, use the file stem; otherwise use the folder path
+    if(_dir STREQUAL "")
+        set(_base "${_stem}")
+    else()
+        set(_base "${_dir}")
+    endif()
+
+    # Sanitize: slashes, spaces, dashes, weird chars → underscores; collapse repeats
+    string(REPLACE "/" "_" _base "${_base}")
+    string(REPLACE " " "_" _base "${_base}")
+    string(REPLACE "-" "_" _base "${_base}")
+    string(REGEX REPLACE "[^A-Za-z0-9_]" "_" _base "${_base}")
+    string(REGEX REPLACE "_+" "_" _base "${_base}")
+    # Ensure it starts with a letter
+    string(REGEX REPLACE "^[^A-Za-z]+" "prog_" _base "${_base}")
+
+    # Ensure uniqueness if two paths sanitize to the same name
+    set(_candidate "${_base}")
+    set(_i 1)
+    while(TARGET "${_candidate}")
+        math(EXPR _i "${_i}+1")
+        set(_candidate "${_base}_${_i}")
+    endwhile()
+
+    set(${out_var} "${_candidate}" PARENT_SCOPE)
+endfunction()
+
+# One target per discovered main file, compiled with warnings on
 foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
-    # Example MAIN_FILE: Assignment-1 (Classes and Objects Basics)/Bank Management System/main.cpp
-    get_filename_component(PARENT_DIR "${MAIN_FILE}" DIRECTORY)
+    # Extra safety in case file vanishes during configure
+    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/${MAIN_FILE}")
+        message(WARNING "Skipping missing source: ${MAIN_FILE}")
+        continue()
+    endif()
 
-    # Build a clean target name from the path
-    string(REPLACE "/" "_" TARGET_NAME_RAW "${PARENT_DIR}")
-    string(REPLACE " " "_" TARGET_NAME_RAW "${TARGET_NAME_RAW}")
-    string(REPLACE "-" "_" TARGET_NAME_RAW "${TARGET_NAME_RAW}")
-    string(REGEX REPLACE "[^A-Za-z0-9_]" "_" TARGET_NAME "${TARGET_NAME_RAW}")
-    string(REGEX REPLACE "_+" "_" TARGET_NAME "${TARGET_NAME}")
-    string(REGEX REPLACE "^[^A-Za-z]+" "prog_" TARGET_NAME "${TARGET_NAME}")
-
-    # 👇 Each target now gets ONLY its own main.cpp
-    add_executable(${TARGET_NAME} "${MAIN_FILE}"
-            In-Class-Assignment-Vector-And-Array-Implementation/main.cpp
-            In-Class-Work-Pointers/main.cpp
-            Assignment-3-Arrays-in-OOPS/book/main.cpp
-            Assignment-3-Arrays-in-OOPS/Menu/main.cpp
-            Assignment-3-Arrays-in-OOPS/Student/main.cpp
-            In-Class-Problem-Passing-By-Value/main.cpp
-            Assignment-4-Vectors-In-Oops/main.cpp
-            Assignment-5-Pointers/main.cpp
-            In-Class-Assignment-Passing-Techniques/main.cpp
-            Assignment-5-Pointers/Problem-1/mian.cpp
-            Assignment-5-Pointers/Problem-2/main.cpp
-            Assignment-5-Pointers/Problem-1/mian.cpp
-            Assignment-5-Pointers/Problem-1/mian.cpp
-            Assignment-5-Pointers/Problem-2/main.cpp
-            In-Class-Inheritance-Work/main.cpp
-    )
+    make_target_name(TGT "${MAIN_FILE}")
+    add_executable(${TGT} "${MAIN_FILE}")
 
     if (MSVC)
-        target_compile_options(${TARGET_NAME} PRIVATE /W4 /permissive-)
+        target_compile_options(${TGT} PRIVATE /W4 /permissive-)
     else()
-        target_compile_options(${TARGET_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+        target_compile_options(${TGT} PRIVATE -Wall -Wextra -Wpedantic)
     endif()
+
+    message(STATUS "Added target ${TGT} -> ${MAIN_FILE}")
 endforeach()
