@@ -25,7 +25,7 @@ public:
         : Staff(n, i), specialization(s), yearsExperience(y) {}
 
     void displayDetails() const override {
-        std::cout << "\n--- Doctor Details ---\n";
+        std::cout << "Doctor Details\n";
         Staff::displayDetails();
         std::cout << "Specialization: " << specialization << '\n';
         std::cout << "Years of Experience: " << yearsExperience << '\n';
@@ -41,7 +41,7 @@ public:
         : Staff(n, i), department(d), shift(s) {}
 
     void displayDetails() const override {
-        std::cout << "\n--- Nurse Details ---\n";
+        std::cout << "Nurse Details\n";
         Staff::displayDetails();
         std::cout << "Department: " << department << '\n';
         std::cout << "Shift: " << shift << '\n';

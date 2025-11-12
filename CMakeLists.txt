@@ -59,7 +59,8 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
     endif()
 
     make_target_name(TGT "${MAIN_FILE}")
-    add_executable(${TGT} "${MAIN_FILE}")
+    add_executable(${TGT} "${MAIN_FILE}"
+            Polymorphism-Testing/main.cpp)
 
     if (MSVC)
         target_compile_options(${TGT} PRIVATE /W4 /permissive-)
