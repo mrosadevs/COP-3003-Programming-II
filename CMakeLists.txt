@@ -61,7 +61,8 @@ foreach(MAIN_FILE IN LISTS PROGRAM_MAIN_FILES)
     make_target_name(TGT "${MAIN_FILE}")
     add_executable(${TGT} "${MAIN_FILE}"
             Polymorphism-Testing/main.cpp
-            "Tutroing Kev/main.cpp")
+            "Tutroing Kev/main.cpp"
+            Assignment-6-Hybrid-Inheritance/main.cpp)
 
     if (MSVC)
         target_compile_options(${TGT} PRIVATE /W4 /permissive-)
